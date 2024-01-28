@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Web Application</title>
+    <!-- Bootstrap CSS link -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <!-- Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #000;
+            color: #fff;
+        }
+
+        .card-body {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .container-fluid {
+            height: 100vh;
+            display: flex;
+        }
+
+        aside {
+            flex: 0 0 200px;
+            background-color: transparent;
+            color: #0b0b0b;
+            padding: 20px;
+            height: 100%;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            flex: 1 1 100%;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            color: #000;
+            display: flex;
+            flex-direction: column;
+            height: 340px;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background-color: #060f73;
+            color: #fff;
+            border-radius: 2px;
+            width: 100%;
+            padding: 13px;
+            text-align: center;
+        }
+
+        .Side {
+            height: 100%;
+            background-color: #cfff2cdb;
+            width: 100%;
+            border-radius: 5px;
+            height: 159%;
+            margin-top: -9px;
+        }
+
+        .menu-item {
+            padding: 10px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .menu-item:hover {
+            background-color: #03630d;
+        }
+
+        .menu-icon {
+            margin-right: 10px;
+        }
+
+        .card-body {
+            flex: 1;
+            padding: 20px;
+            background-color: ghostwhite;
+        }
+
+        /* Profile Picture and Bell Icon Styles */
+         .profilIcon{
+            margin-left: 30px;
+         }
+        .profile-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; /* Align to the right */
+            margin-bottom: 20px;
+            margin-top: 9px;
+        }
+        .notification-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 13px;
+    background-color:transparent;
+    height: 54px;
+    border-radius: 5px;
+    margin-top: -21px;
+    padding-top: 29px;
+   
+}
+
+        .notification-container i {
+            font-size: 2em;
+            margin-right: 10px;
+        }
+        .bellIcon{
+            margin-left: 1122px;
+
+        }
+        img{
+            width: 193px;
+    height: 66px;
+    background-color: white;
+    border-radius: 2px;
+    padding-left: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <!-- Left Sidebar -->
+        <aside class="p-1">
+            <div class="profile-container">
+                <!-- Bootstrap icon for profile -->
+<img src="./logo_NYPA_500x125.png">
+                <!-- <h3 class="logo"><i class="fas fa-chart-line"></i> Dashboard</h3> -->
+            </div>
+            <div class="Side">
+                <div class="menu-item">
+                    <i class="fas fa-home menu-icon"></i> Home
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-rocket menu-icon"></i> Mission Page
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-plus-circle menu-icon"></i> Create Page
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-bullhorn menu-icon"></i> Updates
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-info-circle menu-icon"></i> About
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-envelope menu-icon"></i> Contact
+                </div>
+                <i class="fa-solid fa-user"></i>
+
+  <!-- regular style -->
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="p-4">
+        <nav>
+            
+            <div class="notification-container">
+                <i class="fas fa-bell bellIcon"></i>
+                <i class="fas fa-user-circle profilIcon" style="color: #fcfcfc;"></i>
+              
+              
+            </div>
+        </nav>
+           
+
+            <!-- Large Graph at the Top -->
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="lineChart" height="300px"></canvas>
+                </div>
+            </div>
+
+            <!-- Three Small Graphs Below the Large Graph -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="barChart1"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="pieChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="radarChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Two Tables at the Bottom -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Table 1</h5>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Product</th>
+                                        <th scope="col">Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Product A</td>
+                                        <td>$20</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Product B</td>
+                                        <td>$25</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Product C</td>
+                                        <td>$18</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Table 2</h5>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Category</th>
+                                        <th scope="col">Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Category X</td>
+                                        <td>50</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Category Y</td>
+                                        <td>35</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Category Z</td>
+                                        <td>45</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js scripts (required for Bootstrap components) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- Script for the line chart -->
+    <script>
+        var lineChartData = {
+            labels: ["January", "February", "March", "April", "May"],
+            datasets: [{
+                label: 'Line Chart',
+                borderColor: '#3498db',
+                data: [10, 25, 20, 35, 30],
+                fill: false
+            }]
+        };
+
+        var lineCtx = document.getElementById('lineChart').getContext('2d');
+
+        var lineChart = new Chart(lineCtx, {
+            type: 'line',
+            data: lineChartData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        type: 'category',
+                        position: 'bottom'
+                    },
+                    y: {
+                        type: 'linear',
+                        position: 'left'
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- Script for the first bar chart -->
+    <script>
+        var barChartData1 = {
+            labels: ["Category 1", "Category 2", "Category 3", "Category 4", "Category 5"],
+            datasets: [{
+                label: 'Bar Chart 1',
+                backgroundColor: '#831a1a',
+                data: [15, 25, 20, 10, 30]
+            }]
+        };
+
+        var barCtx1 = document.getElementById('barChart1').getContext('2d');
+
+        var barChart1 = new Chart(barCtx1, {
+            type: 'bar',
+            data: barChartData1,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        type: 'category',
+                        position: 'bottom'
+                    },
+                    y: {
+                        type: 'linear',
+                        position: 'left'
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- Script for the pie chart -->
+    <script>
+        var pieChartData = {
+            labels: ["Category A", "Category B", "Category C"],
+            datasets: [{
+                data: [30, 40, 30],
+                backgroundColor: ['#2ecc71', '#f39c12', '#3498db']
+            }]
+        };
+
+        var pieCtx = document.getElementById('pieChart').getContext('2d');
+
+        var pieChart = new Chart(pieCtx, {
+            type: 'pie',
+            data: pieChartData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+
+    <!-- Script for the radar chart -->
+    <script>
+        var radarChartData = {
+            labels: ["Attribute 1", "Attribute 2", "Attribute 3", "Attribute 4", "Attribute 5"],
+            datasets: [{
+                label: 'Radar Chart',
+                borderColor: '#9b59b6',
+                backgroundColor: 'rgba(185, 91, 106, 0.2)',
+                pointBorderColor: '#e74c3c',
+                data: [80, 60, 70, 50, 75]
+            }]
+        };
+
+        var radarCtx = document.getElementById('radarChart').getContext('2d');
+
+        var radarChart = new Chart(radarCtx, {
+            type: 'radar',
+            data: radarChartData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+</body>
+
+</html>
